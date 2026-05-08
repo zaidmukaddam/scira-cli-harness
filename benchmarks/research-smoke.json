@@ -1,0 +1,561 @@
+{
+  "name": "research-smoke",
+  "description": "Small source-backed QA suite for comparing search provider and model combinations in the Flue research harness.",
+  "inspiredBy": [
+    "https://openai.com/index/introducing-simpleqa/",
+    "https://openai.com/index/browsecomp",
+    "https://ai.meta.com/research/publications/gaia-a-benchmark-for-general-ai-assistants/"
+  ],
+  "cases": [
+    {
+      "id": "simpleqa-design",
+      "title": "SimpleQA size and grading shape",
+      "category": "simpleqa-style",
+      "question": "Using official SimpleQA material, answer: how many questions are in SimpleQA, and what answer property makes the questions easy to grade?",
+      "queries": [
+        "OpenAI SimpleQA 4326 single indisputable answer easy to grade",
+        "Introducing SimpleQA 4326 questions easy to grade"
+      ],
+      "expectedFacts": [
+        {
+          "label": "SimpleQA has 4,326 questions",
+          "anyOf": ["4,326", "4326"]
+        },
+        {
+          "label": "Questions have a single indisputable answer",
+          "anyOf": ["single, indisputable", "single indisputable", "only a single indisputable", "one indisputable"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/introducing-simpleqa/"]
+    },
+    {
+      "id": "simpleqa-quality-check",
+      "title": "SimpleQA verification and error estimate",
+      "category": "simpleqa-style",
+      "question": "Using the official SimpleQA page, answer: what random sample size did the third AI trainer verify, what match rate did they find, and what inherent dataset error rate did OpenAI estimate?",
+      "queries": [
+        "OpenAI SimpleQA third AI trainer 1000 94.4 3% error rate",
+        "Introducing SimpleQA random sample 1000 matched 94.4 inherent error 3%"
+      ],
+      "expectedFacts": [
+        {
+          "label": "Third trainer verified a random sample of 1,000 questions",
+          "anyOf": ["1,000", "1000"]
+        },
+        {
+          "label": "Third trainer match rate was 94.4%",
+          "anyOf": ["94.4"]
+        },
+        {
+          "label": "Estimated inherent error rate was approximately 3%",
+          "anyOf": ["approximately 3", "approx 3", "about 3", "3%"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/introducing-simpleqa/"]
+    },
+    {
+      "id": "simpleqa-grading-labels",
+      "title": "SimpleQA grading labels",
+      "category": "simpleqa-style",
+      "question": "Using official SimpleQA material, answer: what are the three grading labels used by the prompted classifier, and what does the classifier compare?",
+      "queries": [
+        "SimpleQA prompted classifier correct incorrect not attempted predicted ground truth",
+        "OpenAI SimpleQA grading correct incorrect not attempted"
+      ],
+      "expectedFacts": [
+        {
+          "label": "The labels include correct",
+          "anyOf": ["correct"]
+        },
+        {
+          "label": "The labels include incorrect",
+          "anyOf": ["incorrect"]
+        },
+        {
+          "label": "The labels include not attempted",
+          "anyOf": ["not attempted"]
+        },
+        {
+          "label": "The classifier compares predicted answer and ground-truth answer",
+          "anyOf": ["predicted answer", "ground-truth answer", "ground truth answer"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/introducing-simpleqa/"]
+    },
+    {
+      "id": "simpleqa-edge-grade",
+      "title": "SimpleQA grading edge case",
+      "category": "grading-reasoning",
+      "question": "Using the official SimpleQA grading examples, answer: for the World Cup example whose reference answer is Wout Weghorst, why is the response \"Virgil van Dijk and Wout Weghorst\" graded incorrect rather than correct?",
+      "queries": [
+        "OpenAI SimpleQA Virgil van Dijk and Wout Weghorst incorrect",
+        "SimpleQA grading examples Virgil van Dijk Wout Weghorst incorrect"
+      ],
+      "expectedFacts": [
+        {
+          "label": "The response is graded incorrect",
+          "anyOf": ["incorrect"]
+        },
+        {
+          "label": "The correct reference answer is Wout Weghorst",
+          "anyOf": ["Wout Weghorst", "weghorst"]
+        },
+        {
+          "label": "The extra Virgil van Dijk claim contradicts the reference answer",
+          "anyOf": ["Virgil van Dijk", "contradict", "contradicts", "extra"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/introducing-simpleqa/"]
+    },
+    {
+      "id": "browsecomp-size",
+      "title": "BrowseComp purpose and size",
+      "category": "browsecomp-style",
+      "question": "Using the official BrowseComp page, answer: what capability does BrowseComp measure, and how many challenging problems does it contain?",
+      "queries": [
+        "OpenAI BrowseComp 1266 challenging problems browsing agents",
+        "BrowseComp measures hard-to-find information 1266"
+      ],
+      "expectedFacts": [
+        {
+          "label": "BrowseComp contains 1,266 problems",
+          "anyOf": ["1,266", "1266"]
+        },
+        {
+          "label": "It measures finding hard-to-find information by browsing",
+          "anyOf": ["hard-to-find", "hard to find", "locate information", "browsing agents"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/browsecomp"]
+    },
+    {
+      "id": "simpleqa-vs-browsecomp",
+      "title": "SimpleQA versus BrowseComp comparison",
+      "category": "comparative-synthesis",
+      "question": "Using the official SimpleQA and BrowseComp pages, compare what each benchmark is meant to measure, and explain why BrowseComp was introduced even though SimpleQA exists.",
+      "queries": [
+        "OpenAI SimpleQA measures factuality short fact seeking questions",
+        "OpenAI BrowseComp hard-to-find entangled information SimpleQA saturated browsing tools"
+      ],
+      "expectedFacts": [
+        {
+          "label": "SimpleQA measures factuality",
+          "anyOf": ["factuality"]
+        },
+        {
+          "label": "SimpleQA uses short fact-seeking questions",
+          "anyOf": ["short, fact-seeking", "short fact-seeking", "fact-seeking questions"]
+        },
+        {
+          "label": "BrowseComp measures hard-to-find information retrieval by browsing",
+          "anyOf": ["hard-to-find", "hard to find", "browsing"]
+        },
+        {
+          "label": "BrowseComp targets entangled information or browsing competition",
+          "anyOf": ["entangled", "Browsing Competition", "browsecomp"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": [
+        "https://openai.com/index/introducing-simpleqa/",
+        "https://openai.com/index/browsecomp"
+      ]
+    },
+    {
+      "id": "browsecomp-human-difficulty",
+      "title": "BrowseComp human verification difficulty",
+      "category": "browsecomp-style",
+      "question": "Using the official BrowseComp page, answer: what share of problems did human trainers solve in the verification campaign, what was the agreement rate on solved problems, and what time limit was used before labeling a problem unsolvable?",
+      "queries": [
+        "BrowseComp human trainers solved 29.2 agreement 86.4 two hours",
+        "OpenAI BrowseComp verification campaign 29.2 86.4 two hours"
+      ],
+      "expectedFacts": [
+        {
+          "label": "Human trainers solved 29.2% of problems",
+          "anyOf": ["29.2"]
+        },
+        {
+          "label": "Solved-problem agreement was 86.4%",
+          "anyOf": ["86.4"]
+        },
+        {
+          "label": "The unsolvable cutoff was two hours",
+          "anyOf": ["two hours", "2 hours"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/browsecomp"]
+    },
+    {
+      "id": "browsecomp-unsolved-math",
+      "title": "BrowseComp verification arithmetic",
+      "category": "numeric-reasoning",
+      "question": "Using the official BrowseComp verification campaign numbers, answer: out of how many total problems, how many were labeled unsolvable, and what percentage was that?",
+      "queries": [
+        "BrowseComp total problems verification campaign unsolvable 888 1255 70.8",
+        "OpenAI BrowseComp unsolvable 888 1255 70.8"
+      ],
+      "expectedFacts": [
+        {
+          "label": "The verification campaign had 1,255 total problems",
+          "anyOf": ["1,255", "1255"]
+        },
+        {
+          "label": "888 problems were labeled unsolvable",
+          "anyOf": ["888"]
+        },
+        {
+          "label": "The unsolvable share was 70.8%",
+          "anyOf": ["70.8"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/browsecomp"]
+    },
+    {
+      "id": "browsecomp-model-baselines",
+      "title": "BrowseComp baseline model accuracies",
+      "category": "browsecomp-style",
+      "question": "Using the official BrowseComp page, report the listed accuracies for GPT-4o, GPT-4o with browsing, OpenAI o1, and Deep Research.",
+      "queries": [
+        "BrowseComp GPT-4o 0.6 GPT-4o browsing 1.9 o1 9.9 Deep Research 51.5",
+        "OpenAI BrowseComp model accuracy table GPT-4o browsing deep research"
+      ],
+      "expectedFacts": [
+        {
+          "label": "GPT-4o accuracy was 0.6%",
+          "anyOf": ["0.6"]
+        },
+        {
+          "label": "GPT-4o with browsing accuracy was 1.9%",
+          "anyOf": ["1.9"]
+        },
+        {
+          "label": "OpenAI o1 accuracy was 9.9%",
+          "anyOf": ["9.9"]
+        },
+        {
+          "label": "Deep Research accuracy was 51.5%",
+          "anyOf": ["51.5"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/browsecomp"]
+    },
+    {
+      "id": "browsecomp-browsing-delta",
+      "title": "BrowseComp browsing delta",
+      "category": "numeric-reasoning",
+      "question": "Using the official BrowseComp model accuracy table, calculate the absolute improvement of GPT-4o with browsing over GPT-4o without browsing, in percentage points.",
+      "queries": [
+        "BrowseComp GPT-4o 0.6 GPT-4o with browsing 1.9 improvement percentage points",
+        "OpenAI BrowseComp model accuracy GPT-4o browsing 1.9 0.6"
+      ],
+      "expectedFacts": [
+        {
+          "label": "GPT-4o without browsing scored 0.6%",
+          "anyOf": ["0.6"]
+        },
+        {
+          "label": "GPT-4o with browsing scored 1.9%",
+          "anyOf": ["1.9"]
+        },
+        {
+          "label": "The absolute improvement was 1.3 percentage points",
+          "anyOf": ["1.3", "1.3 percentage points", "1.3 points"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/browsecomp"]
+    },
+    {
+      "id": "browsecomp-best-caveat",
+      "title": "BrowseComp best model and caveat",
+      "category": "caveat-detection",
+      "question": "Using the official BrowseComp page, identify the best-performing listed model in the table, its accuracy, and the caveat attached to that result.",
+      "queries": [
+        "BrowseComp Deep Research 51.5 trained on data caveat",
+        "OpenAI BrowseComp Deep research 51.5 note trained on BrowseComp tasks"
+      ],
+      "expectedFacts": [
+        {
+          "label": "Deep Research was the best-performing listed model",
+          "anyOf": ["Deep Research", "deep research"]
+        },
+        {
+          "label": "Deep Research scored 51.5%",
+          "anyOf": ["51.5"]
+        },
+        {
+          "label": "The caveat says Deep Research was trained on data teaching BrowseComp tasks",
+          "anyOf": ["trained on data", "specifically teaches", "BrowseComp tasks"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/browsecomp"]
+    },
+    {
+      "id": "browsecomp-challenge-checks",
+      "title": "BrowseComp task difficulty checks",
+      "category": "browsecomp-style",
+      "question": "Using the official BrowseComp page, answer: what checks did trainers use to make questions sufficiently challenging?",
+      "queries": [
+        "BrowseComp five simple searches solved more than 40 percent revised",
+        "OpenAI BrowseComp checks sufficiently challenging five searches 10 minutes 40%"
+      ],
+      "expectedFacts": [
+        {
+          "label": "Existing models were checked and could not solve the question",
+          "anyOf": ["existing models", "not able to solve", "could not solve"]
+        },
+        {
+          "label": "Trainers performed five simple searches",
+          "anyOf": ["five simple searches", "5 simple searches"]
+        },
+        {
+          "label": "Questions solved more than 40% of the time were revised",
+          "anyOf": ["40%", "40 percent", "more than 40"]
+        }
+      ],
+      "requiredDomains": ["openai.com"],
+      "requireCitation": true,
+      "referenceUrls": ["https://openai.com/index/browsecomp"]
+    },
+    {
+      "id": "gaia-counts",
+      "title": "GAIA public and retained answers",
+      "category": "gaia-style",
+      "question": "Using the official GAIA publication page, answer: how many questions did GAIA devise, and how many answers were retained for the leaderboard?",
+      "queries": [
+        "Meta GAIA benchmark 466 questions 300 answers retained leaderboard",
+        "GAIA benchmark devised 466 questions retained answers 300"
+      ],
+      "expectedFacts": [
+        {
+          "label": "GAIA devised 466 questions",
+          "anyOf": ["466"]
+        },
+        {
+          "label": "GAIA retained answers to 300 questions for the leaderboard",
+          "anyOf": ["300"]
+        }
+      ],
+      "requiredDomains": ["ai.meta.com"],
+      "requireCitation": true,
+      "referenceUrls": [
+        "https://ai.meta.com/research/publications/gaia-a-benchmark-for-general-ai-assistants/"
+      ]
+    },
+    {
+      "id": "gaia-capability-gap",
+      "title": "GAIA capability requirements and performance gap",
+      "category": "gaia-style",
+      "question": "Using the official GAIA publication page, answer: what abilities does GAIA require, and what human versus GPT-4-with-plugins scores are reported?",
+      "queries": [
+        "Meta GAIA reasoning multi-modality web browsing tool-use human 92 GPT-4 plugins 15",
+        "GAIA benchmark human 92 GPT-4 plugins 15 fundamental abilities"
+      ],
+      "expectedFacts": [
+        {
+          "label": "GAIA requires reasoning",
+          "anyOf": ["reasoning"]
+        },
+        {
+          "label": "GAIA requires multi-modality handling",
+          "anyOf": ["multi-modality", "multimodality", "multi modality"]
+        },
+        {
+          "label": "GAIA requires web browsing",
+          "anyOf": ["web browsing"]
+        },
+        {
+          "label": "GAIA requires tool-use proficiency",
+          "anyOf": ["tool-use", "tool use"]
+        },
+        {
+          "label": "Human respondents scored 92%",
+          "anyOf": ["92"]
+        },
+        {
+          "label": "GPT-4 with plugins scored 15%",
+          "anyOf": ["15"]
+        }
+      ],
+      "requiredDomains": ["ai.meta.com"],
+      "requireCitation": true,
+      "referenceUrls": [
+        "https://ai.meta.com/research/publications/gaia-a-benchmark-for-general-ai-assistants/"
+      ]
+    },
+    {
+      "id": "gaia-philosophy-contrast",
+      "title": "GAIA benchmark philosophy contrast",
+      "category": "conceptual-synthesis",
+      "question": "Using the official GAIA publication page, explain how GAIA's benchmark philosophy differs from benchmarks that target tasks ever more difficult for humans.",
+      "queries": [
+        "GAIA philosophy departs benchmarks ever more difficult for humans conceptually simple",
+        "Meta GAIA conceptually simple for humans challenging for AI benchmark philosophy"
+      ],
+      "expectedFacts": [
+        {
+          "label": "GAIA questions are conceptually simple for humans",
+          "anyOf": ["conceptually simple for humans", "simple for humans"]
+        },
+        {
+          "label": "GAIA questions are challenging for advanced AIs",
+          "anyOf": ["challenging for", "advanced AIs", "advanced AI"]
+        },
+        {
+          "label": "GAIA departs from targeting tasks ever more difficult for humans",
+          "anyOf": ["ever more difficult for humans", "departs from"]
+        },
+        {
+          "label": "GAIA emphasizes robustness similar to average human capability",
+          "anyOf": ["robustness", "average human"]
+        }
+      ],
+      "requiredDomains": ["ai.meta.com"],
+      "requireCitation": true,
+      "referenceUrls": [
+        "https://ai.meta.com/research/publications/gaia-a-benchmark-for-general-ai-assistants/"
+      ]
+    },
+    {
+      "id": "flue-start-commands",
+      "title": "Flue local run command constraints",
+      "category": "harness-docs",
+      "question": "Fetch https://flueframework.com/start.md, then answer: for local development, which Flue dev command targets are preferred, and what target does flue run support?",
+      "queries": [
+        "Flue start.md flue dev target node cloudflare flue run target node",
+        "flueframework start.md flue run supports target node"
+      ],
+      "expectedFacts": [
+        {
+          "label": "Local development prefers flue dev --target node",
+          "anyOf": ["flue dev --target node"]
+        },
+        {
+          "label": "Local development prefers flue dev --target cloudflare",
+          "anyOf": ["flue dev --target cloudflare"]
+        },
+        {
+          "label": "flue run only supports --target node",
+          "anyOf": ["flue run only supports --target node", "flue run supports --target node", "flue run only supports target node"]
+        }
+      ],
+      "requiredDomains": ["flueframework.com"],
+      "requireCitation": true,
+      "requireFetch": true,
+      "referenceUrls": ["https://flueframework.com/start.md"]
+    },
+    {
+      "id": "flue-cloudflare-negative",
+      "title": "Flue Cloudflare run negative control",
+      "category": "negative-control",
+      "question": "Fetch https://flueframework.com/start.md, then answer: is `flue run --target cloudflare` supported? If not, what should be used for local Cloudflare development and what target does `flue run` support?",
+      "queries": [
+        "flue run --target cloudflare not supported flue dev --target cloudflare",
+        "Flue start.md flue run cloudflare not supported target node"
+      ],
+      "expectedFacts": [
+        {
+          "label": "flue run --target cloudflare is not supported",
+          "anyOf": ["not supported", "is not supported"]
+        },
+        {
+          "label": "Local Cloudflare development should use flue dev --target cloudflare",
+          "anyOf": ["flue dev --target cloudflare"]
+        },
+        {
+          "label": "flue run only supports --target node",
+          "anyOf": ["flue run only supports --target node", "flue run supports --target node", "--target node"]
+        }
+      ],
+      "requiredDomains": ["flueframework.com"],
+      "requireCitation": true,
+      "requireFetch": true,
+      "referenceUrls": ["https://flueframework.com/start.md"]
+    },
+    {
+      "id": "flue-model-selection",
+      "title": "Flue model selection guidance",
+      "category": "harness-docs",
+      "question": "Fetch https://flueframework.com/start.md, then answer: which exact model IDs does the Flue start guide suggest, where should a different requested model be checked, and what should happen if the requested model is unavailable?",
+      "queries": [
+        "flueframework start.md suggested model IDs claude sonnet opus gpt-5.5 kimi-k2.6 models.json",
+        "Flue start guide requested model unavailable ask before substituting"
+      ],
+      "expectedFacts": [
+        {
+          "label": "Suggested model includes anthropic/claude-sonnet-4-6",
+          "anyOf": ["anthropic/claude-sonnet-4-6"]
+        },
+        {
+          "label": "Suggested model includes anthropic/claude-opus-4-7",
+          "anyOf": ["anthropic/claude-opus-4-7"]
+        },
+        {
+          "label": "Suggested model includes openai/gpt-5.5",
+          "anyOf": ["openai/gpt-5.5"]
+        },
+        {
+          "label": "Suggested model includes openrouter/moonshotai/kimi-k2.6",
+          "anyOf": ["openrouter/moonshotai/kimi-k2.6"]
+        },
+        {
+          "label": "Different models should be checked against models.json",
+          "anyOf": ["models.json", "https://flueframework.com/models.json"]
+        },
+        {
+          "label": "Unavailable requested models should not be substituted without asking",
+          "anyOf": ["ask before substituting", "do not continue", "requested model is unavailable"]
+        }
+      ],
+      "requiredDomains": ["flueframework.com"],
+      "requireCitation": true,
+      "requireFetch": true,
+      "referenceUrls": ["https://flueframework.com/start.md"]
+    },
+    {
+      "id": "flue-layout-rules",
+      "title": "Flue workspace layout rules",
+      "category": "harness-docs",
+      "question": "Fetch https://flueframework.com/start.md, then answer: what workspace layout should be used for a new or empty target directory, and what layout should be used for an existing non-empty directory?",
+      "queries": [
+        "flueframework start.md new empty target directory root layout agents roles existing non-empty .flue",
+        "Flue start guide workspace layout root .flue existing non-empty"
+      ],
+      "expectedFacts": [
+        {
+          "label": "New or empty directory uses root layout",
+          "anyOf": ["root layout", "./agents", "./roles", "agents/"]
+        },
+        {
+          "label": "Existing non-empty directory uses .flue layout",
+          "anyOf": [".flue layout", "./.flue/agents", ".flue/agents"]
+        }
+      ],
+      "requiredDomains": ["flueframework.com"],
+      "requireCitation": true,
+      "requireFetch": true,
+      "referenceUrls": ["https://flueframework.com/start.md"]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+# Dependencies
+node_modules
+
+# Build output (run bun run build after clone)
+dist
+out
+*.tgz
+
+# Code coverage
+coverage
+*.lcov
+
+# Logs
+logs
+*.log
+
+# Environment and secrets (never commit)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Caches
+.eslintcache
+.cache
+*.tsbuildinfo
+
+# IDE / OS
+.idea
+.DS_Store
+
+# Python (benchmark charts script)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+/fonts/
+
+# Generated chart images (regenerate with uv run visualize_benchmark.py)
+benchmark_charts/
+
+# Optional local benchmark exports
+benchmark-results/
+reports/
