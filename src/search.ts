@@ -108,13 +108,14 @@ async function runSingleSearch(params: {
 
 async function searchParallel(params: {
   query: string;
+  quality: Quality;
   maxResults: number;
   startDate?: string;
 }): Promise<SearchResult[]> {
   const parallel = new Parallel({ apiKey: requireEnv('PARALLEL_API_KEY') });
   const response = await parallel.search({
     objective: params.query,
-    mode: 'basic',
+    mode: params.quality === 'best' ? 'advanced' : 'basic',
     max_chars_total: 6000,
     search_queries: [params.query],
     advanced_settings: {
@@ -297,7 +298,6 @@ async function fetchExaLinks(params: {
           maxCharacters: Math.min(params.maxCharacters, 4000),
         }
       : undefined,
-    livecrawl: 'always',
     maxAgeHours: 0,
     filterEmptyResults: false,
   });
