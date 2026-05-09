@@ -139,8 +139,8 @@ async function searchParallel(params: {
     sourceKind: 'search',
     query: params.query,
     url: result.url ?? '',
-    title: cleanTitle(result.excerpts.join(',')),
-    content: normalizeContent(result.excerpts).slice(0, 1600),
+    title: cleanTitle(result.title ?? ""),
+    content: normalizeContent(result.excerpts.join(' ')).slice(0, 1600),
     publishedDate: result.publish_date ?? undefined,
   }));
 
@@ -161,18 +161,13 @@ async function searchExa(params: {
   const endPublishedDate = params.startDate ? new Date().toISOString() : undefined;
 
   const response = await exa.search(params.query, {
-    type: params.quality === 'best' ? 'deep' : 'instant',
+    type: params.quality === 'best' ? 'deep' : 'auto',
     numResults: Math.max(params.maxResults, 10),
     category: params.topic === 'news' ? 'news' : undefined,
     ...(startPublishedDate ? { startPublishedDate } : {}),
     ...(endPublishedDate ? { endPublishedDate } : {}),
     contents: {
-      text: {
-        maxCharacters: 4000,
-      },
-      highlights: {
-        maxCharacters: 4000,
-      },
+      highlights: true
     },
   });
 
@@ -182,7 +177,7 @@ async function searchExa(params: {
     query: params.query,
     url: result.url ?? '',
     title: cleanTitle(result.title ?? ''),
-    content: normalizeContent(result.text ?? result.highlights).slice(0, 1600),
+    content: normalizeContent(result.highlights).slice(0, 1600),
     publishedDate: result.publishedDate ?? undefined,
     author: result.author ?? undefined,
   }));

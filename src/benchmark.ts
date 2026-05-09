@@ -316,19 +316,24 @@ async function runBenchmarkJob(
   );
 
   try {
-    const run = await runResearch({
-      query: buildBenchmarkQuery(benchmarkCase),
-      provider: job.provider,
-      generatedQueries: benchmarkCase.queries,
-      maxResults: options.maxResults,
-      topic: options.topic,
-      quality: options.quality,
-      model: job.model,
-      synthesize: true,
-      useSandbox: options.useSandbox,
-      sandboxSnapshot: options.sandboxSnapshot,
-      sandboxTarget: options.sandboxTarget,
-    });
+    const run = await runResearch(
+      {
+        query: buildBenchmarkQuery(benchmarkCase),
+        provider: job.provider,
+        generatedQueries: benchmarkCase.queries,
+        maxResults: options.maxResults,
+        topic: options.topic,
+        quality: options.quality,
+        model: job.model,
+        synthesize: true,
+        useSandbox: options.useSandbox,
+        sandboxSnapshot: options.sandboxSnapshot,
+        sandboxTarget: options.sandboxTarget,
+      },
+      {
+        log: options.logger ?? (() => {}),
+      },
+    );
     const score = scoreBenchmarkCase(benchmarkCase, run);
     const durationMs = Date.now() - start;
 

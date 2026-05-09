@@ -1,6 +1,11 @@
-import { runFlueResearch } from './flue-runner';
+import { runFlueResearch, type FlueResearchRetryOptions } from './flue-runner';
 import type { ResearchOptions, ResearchRun } from './types';
 
-export async function runResearch(options: ResearchOptions): Promise<ResearchRun> {
-  return runFlueResearch(options);
+export type { FlueResearchRetryOptions };
+
+export async function runResearch(
+  options: ResearchOptions,
+  retry?: FlueResearchRetryOptions,
+): Promise<ResearchRun> {
+  return runFlueResearch(options, retry);
 }
